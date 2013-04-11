@@ -15,339 +15,339 @@
    limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <!-- <parent>
-    <groupId>org.apache.stanbol</groupId>
-    <artifactId>stanbol-parent</artifactId>
-    <version>4-SNAPSHOT</version>
-    <relativePath>../../parent</relativePath>
-  </parent> -->
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>eu.fusepool</groupId>
+        <artifactId>parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../parent</relativePath>
+    </parent>
 
-  <groupId>eu.fusepool</groupId>
-  <artifactId>launcher</artifactId>
-  <version>0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <groupId>eu.fusepool</groupId>
+    <artifactId>launcher</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-  <name>Fusepool Platform Standalone Launcher</name>
-  <description>Runnable jar that runs the Fusepool Platform</description>
+    <name>Fusepool Platform Standalone Launcher</name>
+    <description>Runnable jar that runs the Fusepool Platform</description>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-clean-plugin</artifactId>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>.</directory>
-              <includes>
-                <include>stanbol/**</include>
-                <include>*.log</include>
-              </includes>
-            </fileset>
-          </filesets>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.sling</groupId>
-        <artifactId>maven-launchpad-plugin</artifactId>
-        <version>2.2.0</version>
-        <!--
-          TODO the maven-launchpad-plugin can also generate a war file and
-          Karaf description, we could add this. See
-          http://sling.apache.org/site/maven-launchpad-plugin.html
-        -->
-        <executions>
-          <execution>
-            <id>prepare-package</id>
-            <goals>
-              <goal>prepare-package</goal>
-            </goals>
-            <configuration>
-              <includeDefaultBundles>false</includeDefaultBundles>
-              <!-- Standalone jar requires an OSGi http service implementation -->
-              <jarWebSupport>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.http.jetty</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>.</directory>
+                            <includes>
+                                <include>stanbol/**</include>
+                                <include>*.log</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>maven-launchpad-plugin</artifactId>
                 <version>2.2.0</version>
-              </jarWebSupport>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <mainClass>org.apache.stanbol.launchpad.Main</mainClass>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>2.0</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <artifactSet>
-              <!-- Use this to in/exclude only specific dependencies -->
-                <includes>
-                  <include>org.apache.stanbol:org.apache.stanbol.commons.launchpad</include>
-                  <include>org.apache.sling:org.apache.sling.launchpad.base</include>
-                </includes>
-              </artifactSet>
-              <!-- transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ComponentsXmlResourceTransformer" />
-              </transformers -->
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <configuration>
-          <excludes></excludes>
-        </configuration>
-      </plugin>
-    </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.sling</groupId>
-          <artifactId>maven-launchpad-plugin</artifactId>
-          <version>2.1.0</version>
-          <extensions>true</extensions>
-        </plugin>
-        <!-- generates version number of dependencies suitable for introspection
-          in pax-exam based OSGi lightweight-integration tests -->
-        <plugin>
-          <groupId>org.apache.servicemix.tooling</groupId>
-          <artifactId>depends-maven-plugin</artifactId>
-          <version>1.0</version>
-          <executions>
-            <execution>
-              <id>generate-depends-file</id>
-              <goals>
-                <goal>generate-depends-file</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-antrun-plugin</artifactId>
-          <version>1.7</version>
-          <configuration>
-            <target>
-              <java fork="true" jar="${project.build.directory}/${project.build.finalName}.jar"
-                  dir="${project.build.directory}">
-                <jvmarg line="-Xmx1024m -XX:MaxPermSize=256M"/>
-              </java>
-            </target>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+                <!--
+                  TODO the maven-launchpad-plugin can also generate a war file and
+                  Karaf description, we could add this. See
+                  http://sling.apache.org/site/maven-launchpad-plugin.html
+                -->
+                <executions>
+                    <execution>
+                        <id>prepare-package</id>
+                        <goals>
+                            <goal>prepare-package</goal>
+                        </goals>
+                        <configuration>
+                            <includeDefaultBundles>false</includeDefaultBundles>
+                            <!-- Standalone jar requires an OSGi http service implementation -->
+                            <jarWebSupport>
+                                <groupId>org.apache.felix</groupId>
+                                <artifactId>org.apache.felix.http.jetty</artifactId>
+                                <version>2.2.0</version>
+                            </jarWebSupport>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>org.apache.stanbol.launchpad.Main</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <!-- Use this to in/exclude only specific dependencies -->
+                                <includes>
+                                    <include>org.apache.stanbol:org.apache.stanbol.commons.launchpad</include>
+                                    <include>org.apache.sling:org.apache.sling.launchpad.base</include>
+                                </includes>
+                            </artifactSet>
+                            <!-- transformers>
+                              <transformer implementation="org.apache.maven.plugins.shade.resource.ComponentsXmlResourceTransformer" />
+                            </transformers -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.rat</groupId>
+                <artifactId>apache-rat-plugin</artifactId>
+                <configuration>
+                    <excludes></excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.sling</groupId>
+                    <artifactId>maven-launchpad-plugin</artifactId>
+                    <version>2.1.0</version>
+                    <extensions>true</extensions>
+                </plugin>
+                <!-- generates version number of dependencies suitable for introspection
+                in pax-exam based OSGi lightweight-integration tests -->
+                <plugin>
+                    <groupId>org.apache.servicemix.tooling</groupId>
+                    <artifactId>depends-maven-plugin</artifactId>
+                    <version>1.0</version>
+                    <executions>
+                        <execution>
+                            <id>generate-depends-file</id>
+                            <goals>
+                                <goal>generate-depends-file</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                    <configuration>
+                        <target>
+                            <java fork="true" jar="${project.build.directory}/${project.build.finalName}.jar"
+                    dir="${project.build.directory}">
+                                <jvmarg line="-Xmx1024m -XX:MaxPermSize=256M"/>
+                            </java>
+                        </target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 
-  <dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+
+
+
+            <!-- Sling -->
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.launchpad.base</artifactId>
+                <version>2.4.0</version>
+                <classifier>app</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.launchpad.base</artifactId>
+                <version>2.4.0</version>
+                <classifier>webapp</classifier>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.launchpad.installer</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.launchpad.api</artifactId>
+                <version>1.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.installer.api</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.installer.core</artifactId>
+                <version>3.4.6</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
     <dependencies>
-
-
-
-    <!-- Sling -->
-    <dependency>
-      <groupId>org.apache.sling</groupId>
-      <artifactId>org.apache.sling.launchpad.base</artifactId>
-      <version>2.4.0</version>
-      <classifier>app</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.sling</groupId>
-      <artifactId>org.apache.sling.launchpad.base</artifactId>
-      <version>2.4.0</version>
-      <classifier>webapp</classifier>
-      <type>war</type>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.sling</groupId>
-      <artifactId>org.apache.sling.launchpad.installer</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.sling</groupId>
-      <artifactId>org.apache.sling.launchpad.api</artifactId>
-      <version>1.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.sling</groupId>
-      <artifactId>org.apache.sling.installer.api</artifactId>
-      <version>1.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.sling</groupId>
-      <artifactId>org.apache.sling.installer.core</artifactId>
-      <version>3.4.6</version>
-    </dependency>
-
-  </dependencies>
-</dependencyManagement>
-
-
-  <dependencies>
-    <dependency>
-      <!-- The Apache Stanbol lauchpad -->
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.commons.launchpad</artifactId>
-      <version>0.12.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <!-- maven-launchpad-plugin builds on the launchpad.base app -->
-      <groupId>org.apache.sling</groupId>
-      <artifactId>org.apache.sling.launchpad.base</artifactId>
-      <classifier>app</classifier>
-	  <version>2.4.0</version>
-    </dependency>
+        <dependency>
+            <!-- The Apache Stanbol lauchpad -->
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.commons.launchpad</artifactId>
+            <version>0.12.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <!-- maven-launchpad-plugin builds on the launchpad.base app -->
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.launchpad.base</artifactId>
+            <classifier>app</classifier>
+            <version>2.4.0</version>
+        </dependency>
     
-    <!-- BundeLists -->
-    <dependency>
-      <groupId>eu.fusepool</groupId>
-      <artifactId>fusepool-bundlelist</artifactId>
-      <version>0.1-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- BundeLists -->
+        <dependency>
+            <groupId>eu.fusepool</groupId>
+            <artifactId>fusepool-bundlelist</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
     
     
-    <!-- OSGi Framemework Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.osgiframework</artifactId>
-      <version>0.10.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- OSGi Framemework Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.osgiframework</artifactId>
+            <version>0.10.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
     
-    <!-- Stanbol Commons Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.stanbolcommons</artifactId>
-      <version>0.10.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Stanbol Commons Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.stanbolcommons</artifactId>
+            <version>0.10.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Security Support -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.security</artifactId>
-      <version>0.10.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Security Support -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.security</artifactId>
+            <version>0.10.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
     
-    <!-- zz> Shell Bundle List --> 
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.zzshell</artifactId>
-      <version>0.10.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- zz> Shell Bundle List --> 
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.zzshell</artifactId>
+            <version>0.10.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Stanbol CMS Adapter Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.cmsadapter</artifactId>
-      <version>0.10.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Stanbol CMS Adapter Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.cmsadapter</artifactId>
+            <version>0.10.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Stanbol Contenthub Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.contenthub</artifactId>
-      <version>0.11.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Stanbol Contenthub Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.contenthub</artifactId>
+            <version>0.11.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Stanbol Data Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.defaultdata</artifactId>
-      <version>1.1.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency> <!-- include all OpenNLP models in the full launcher -->
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.opennlp</artifactId>
-      <version>1.1.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Stanbol Data Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.defaultdata</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency> <!-- include all OpenNLP models in the full launcher -->
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.opennlp</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Stanbol Enhancer Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.enhancer</artifactId>
-      <version>0.11.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Stanbol Enhancer Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.enhancer</artifactId>
+            <version>0.11.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Stanbol Entityhub Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.entityhub</artifactId>
-      <version>0.12.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Stanbol Entityhub Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.entityhub</artifactId>
+            <version>0.12.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Stanbol Ontology Manager Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.ontologymanager</artifactId>
-      <version>0.10.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Stanbol Ontology Manager Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.ontologymanager</artifactId>
+            <version>0.10.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Stanbol Rules Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.rules</artifactId>
-      <version>0.10.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Stanbol Rules Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.rules</artifactId>
+            <version>0.10.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
     
-    <!-- Stanbol Reasoners Bundle List -->
-    <dependency>
-      <groupId>org.apache.stanbol</groupId>
-      <artifactId>org.apache.stanbol.launchers.bundlelists.reasoners</artifactId>
-      <version>0.10.0-SNAPSHOT</version>
-      <type>partialbundlelist</type>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Stanbol Reasoners Bundle List -->
+        <dependency>
+            <groupId>org.apache.stanbol</groupId>
+            <artifactId>org.apache.stanbol.launchers.bundlelists.reasoners</artifactId>
+            <version>0.10.0-SNAPSHOT</version>
+            <type>partialbundlelist</type>
+            <scope>provided</scope>
+        </dependency>
     
-  </dependencies>
+    </dependencies>
   
   
 </project>
