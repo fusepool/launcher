@@ -260,13 +260,13 @@
         </dependency>
     
         <!-- zz> Shell Bundle List --> 
-        <dependency>
+        <!-- based on old version using incompatible libraries <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.zzshell</artifactId>
             <version>0.10.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
-        </dependency>
+        </dependency> -->
 
         <!-- Stanbol CMS Adapter Bundle List -->
         <dependency>
