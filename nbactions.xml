@@ -37,20 +37,14 @@
     </properties>
   </action>
   <action>
-    <actionName>CUSTOM-versions:use-latest-versions</actionName>
-    <displayName>versions:use-latest-versions</displayName>
-    <goals>
-      <goal>versions:use-latest-versions</goal>
-    </goals>
-  </action>
-  <action>
-    <actionName>CUSTOM-update dependency versions</actionName>
-    <displayName>update dependency versions</displayName>
-    <goals>
-      <goal>versions:use-latest-versions</goal>
-    </goals>
-    <properties>
-      <allowSnapshots>true</allowSnapshots>
-    </properties>
-  </action>
+        <actionName>CUSTOM-resume-debug</actionName>
+        <displayName>Resume Debug</displayName>
+        <goals>
+            <goal>antrun:run</goal>
+        </goals>
+        <properties>
+            <vm.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address}</vm.args>
+            <jpda.listen>true</jpda.listen>
+        </properties>
+    </action>
 </actions>
