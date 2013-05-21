@@ -44,11 +44,11 @@
   <!-- Stanbol Commons -->
   <startLevel level="27">
     <!-- The common web interface -->
-    <bundle>
+    <!-- <bundle>
       <groupId>org.apache.stanbol</groupId>
       <artifactId>org.apache.stanbol.commons.web.sparql</artifactId>
       <version>0.12.0-SNAPSHOT</version>
-    </bundle>
+    </bundle> -->
   </startLevel>
 
   <!-- *********************************************************************
