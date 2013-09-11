@@ -153,7 +153,7 @@
                         <target>
                             <property name="vm.args" value=""/>
                             <java fork="true" jar="${project.build.directory}/${project.build.finalName}.jar"
-                    dir="${project.build.directory}">
+                                  dir="${project.build.directory}">
                                 <jvmarg line="-Xmx1024m -XX:MaxPermSize=256M ${vm.args}"/>
                             </java>
                         </target>
@@ -349,8 +349,8 @@
         </dependency> -->
         
         <dependency>
-            <groupId>org.apache.clerezza</groupId>
-            <artifactId>typehandlerspace-bundlelist</artifactId>
+            <groupId>org.apache.clerezza.provisioning</groupId>
+            <artifactId>typehandlerspace</artifactId>
             <version>0.1-SNAPSHOT</version>
             <type>partialbundlelist</type>
         </dependency>
