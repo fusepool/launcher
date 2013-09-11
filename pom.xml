@@ -213,7 +213,7 @@
             <!-- The Apache Stanbol lauchpad -->
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.commons.launchpad</artifactId>
-            <version>0.12.0-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <!-- maven-launchpad-plugin builds on the launchpad.base app -->
@@ -237,7 +237,7 @@
         <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.osgiframework</artifactId>
-            <version>0.10.0-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
         </dependency>
@@ -246,7 +246,7 @@
         <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.stanbolcommons</artifactId>
-            <version>0.10.0-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
         </dependency>
@@ -255,7 +255,7 @@
         <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.security</artifactId>
-            <version>0.10.0-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
         </dependency>
@@ -307,7 +307,7 @@
         <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.enhancer</artifactId>
-            <version>0.11.0-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
         </dependency>
@@ -316,36 +316,43 @@
         <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.entityhub</artifactId>
-            <version>0.12.0-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Stanbol Ontology Manager Bundle List -->
+        <!-- Stanbol Ontology Manager Bundle List
         <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.ontologymanager</artifactId>
             <version>0.10.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
-        </dependency>
+        </dependency> -->
 
-        <!-- Stanbol Rules Bundle List -->
+        <!-- Stanbol Rules Bundle List
         <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.rules</artifactId>
             <version>0.10.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
-        </dependency>
+        </dependency> -->
     
-        <!-- Stanbol Reasoners Bundle List -->
+        <!-- Stanbol Reasoners Bundle List
         <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.reasoners</artifactId>
             <version>0.10.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
+        </dependency> -->
+        
+        <dependency>
+            <groupId>org.apache.clerezza</groupId>
+            <artifactId>typehandlerspace-bundlelist</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <type>partialbundlelist</type>
         </dependency>
     
     </dependencies>
