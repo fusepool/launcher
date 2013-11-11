@@ -37,6 +37,13 @@
     </properties>
   </action>
   <action>
+        <actionName>CUSTOM-resume</actionName>
+        <displayName>Resume</displayName>
+        <goals>
+            <goal>antrun:run</goal>
+        </goals>
+    </action>
+  <action>
         <actionName>CUSTOM-resume-debug</actionName>
         <displayName>Resume Debug</displayName>
         <goals>
