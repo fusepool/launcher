@@ -163,7 +163,7 @@
                             <property name="vm.args" value=""/>
                             <java fork="true" jar="${project.build.directory}/${project.build.finalName}.jar"
                                   dir="${project.build.directory}">
-                                <jvmarg line="-Xmx4g -XX:MaxPermSize=256M ${vm.args}"/>
+                                <jvmarg line="-Xmx1024m -XX:MaxPermSize=256M ${vm.args}"/>
                             </java>
                         </target>
                     </configuration>
@@ -242,40 +242,22 @@
     
     
         <!-- OSGi Framemework Bundle List -->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.osgiframework</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
-        </dependency> -->
-        <dependency>
-            <groupId>org.apache.clerezza.provisioning</groupId>
-            <artifactId>felixosgi</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <type>partialbundlelist</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.clerezza.provisioning</groupId>
-            <artifactId>felixweb</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <type>partialbundlelist</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.clerezza.provisioning</groupId>
-            <artifactId>jaxrs</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <type>partialbundlelist</type>
         </dependency>
     
         <!-- Stanbol Commons Bundle List -->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.apache.stanbol</groupId>
             <artifactId>org.apache.stanbol.launchers.bundlelists.stanbolcommons</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <type>partialbundlelist</type>
             <scope>provided</scope>
-        </dependency> -->
+        </dependency>
 
         <!-- Security Support -->
         <dependency>
