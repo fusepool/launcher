@@ -54,4 +54,13 @@
             <jpda.listen>true</jpda.listen>
         </properties>
     </action>
+    <action>
+        <actionName>CUSTOM-run-with-online-dependency-resolution</actionName>
+        <displayName>Run with online dependency resolution</displayName>
+        <goals>
+            <goal>clean</goal>
+            <goal>package</goal>
+            <goal>antrun:run</goal>
+        </goals>
+    </action>
 </actions>
