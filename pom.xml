@@ -341,13 +341,13 @@
        <dependency>
             <groupId>org.apache.clerezza.provisioning</groupId>
             <artifactId>rdf</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
             <type>partialbundlelist</type>
         </dependency>
         <dependency>
             <groupId>org.apache.clerezza.provisioning</groupId>
             <artifactId>platform.graphnodeprovider</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
             <type>partialbundlelist</type>
         </dependency>
      <!-- <dependency>
@@ -359,25 +359,25 @@
         <dependency>
             <groupId>org.apache.clerezza.provisioning</groupId>
             <artifactId>typehandlerspace</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
             <type>partialbundlelist</type>
         </dependency>
         <dependency>
             <groupId>org.apache.clerezza.provisioning</groupId>
             <artifactId>typerendering</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
             <type>partialbundlelist</type>
         </dependency>
         <dependency>
             <groupId>org.apache.clerezza.provisioning</groupId>
             <artifactId>rdf.web</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
             <type>partialbundlelist</type>
         </dependency>
         <dependency>
             <groupId>org.apache.clerezza.provisioning</groupId>
             <artifactId>platform.content</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
             <type>partialbundlelist</type>
         </dependency>
         
