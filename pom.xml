@@ -52,6 +52,9 @@
             <plugin>
                 <groupId>org.apache.sling</groupId>
                 <artifactId>maven-launchpad-plugin</artifactId>
+                <configuration>
+                    <includeDefaultBundles>false</includeDefaultBundles>
+                </configuration>
                 <!--
                   TODO the maven-launchpad-plugin can also generate a war file and
                   Karaf description, we could add this. See
@@ -382,7 +385,7 @@
         <dependency>
             <groupId>org.apache.clerezza.provisioning</groupId>
             <artifactId>typehandlerspace</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <type>partialbundlelist</type>
         </dependency>
         <dependency>
